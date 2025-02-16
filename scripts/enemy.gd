@@ -6,6 +6,8 @@ const JUMP_VELOCITY = -400.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 var attack = false
+@export var health := 100
+@onready var progress_bar: ProgressBar = %ProgressBar
 
 
 func _physics_process(delta: float) -> void:
@@ -35,6 +37,14 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-
 func set_attack(att: bool) -> void:
 	attack = att
+
+func take_damage(damage : int):
+	health = health - damage
+	if health < 100:
+		progress_bar.show()
+		progress_bar.value = health
+	
+	if health <= 0:
+		queue_free()

@@ -14,7 +14,8 @@ size = Vector2(173.125, 15)
 [node name="Level1" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_1ow65")]
-position = Vector2(136, 544)
+position = Vector2(100, 547)
+collision_layer = 3
 
 [node name="EnemySpwanComponent" type="Node" parent="." node_paths=PackedStringArray("SpwanPoint")]
 script = ExtResource("2_qdqsw")
@@ -26,17 +27,39 @@ position = Vector2(1255, 528)
 [node name="Timer" type="Timer" parent="EnemySpwanComponent"]
 autostart = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="FloorStaticBody2D" type="StaticBody2D" parent="."]
 z_index = 1
 position = Vector2(410, 650)
+collision_layer = 7
+collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_iebn6")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="FloorStaticBody2D"]
 position = Vector2(264.5, -9)
 scale = Vector2(1349, 32)
 mesh = SubResource("BoxMesh_pa7mn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStaticBody2D"]
+position = Vector2(247.5, 12.5)
+scale = Vector2(8, 5)
+shape = SubResource("RectangleShape2D_kijj0")
+metadata/_edit_lock_ = true
+
+[node name="FloorStaticBody2D2" type="StaticBody2D" parent="."]
+visible = false
+light_mask = 3
+visibility_layer = 3
+z_index = 1
+position = Vector2(410, 146)
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_iebn6")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="FloorStaticBody2D2"]
+position = Vector2(264.5, -9)
+scale = Vector2(1349, 32)
+mesh = SubResource("BoxMesh_pa7mn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStaticBody2D2"]
 position = Vector2(247.5, 12.5)
 scale = Vector2(8, 5)
 shape = SubResource("RectangleShape2D_kijj0")
@@ -44,5 +67,7 @@ metadata/_edit_lock_ = true
 
 [node name="TreeStaticBody" parent="." instance=ExtResource("3_ead0o")]
 position = Vector2(280, 496)
+collision_layer = 2
+collision_mask = 2
 
 [connection signal="timeout" from="EnemySpwanComponent/Timer" to="EnemySpwanComponent" method="_on_timer_timeout"]
