@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://csjvjjevtcuhi"]
+
+[ext_resource type="Script" path="res://scripts/scene_manager.gd" id="1_6kn4q"]
+[ext_resource type="PackedScene" uid="uid://dokeix8kb20w1" path="res://scenes/ui.tscn" id="2_6hv16"]
+
+[node name="MainGame" type="Node2D"]
+
+[node name="SceneManager" type="Node" parent="." node_paths=PackedStringArray("levels")]
+script = ExtResource("1_6kn4q")
+levels = NodePath("../Levels")
+
+[node name="Levels" type="Node2D" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("2_6hv16")]
